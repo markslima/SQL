@@ -1,0 +1,34 @@
+-- Create a music store database
+
+CREATE TABLE music_store (id INTEGER PRIMARY KEY, item TEXT, name TEXT, category TEXT, price INTEGER);
+
+INSERT INTO music_store VALUES (1, "guitar", "fender stratocaster", "instrument", 700);
+INSERT INTO music_store VALUES (2, "guitar", "charvel san dimas", "instrument", 800  );
+INSERT INTO music_store VALUES (3, "guitar", "evh wolfgang special", "instrument", 900  );
+INSERT INTO music_store VALUES (4, "amplifier", "marshall JCM900", "speaker", 1200  );
+INSERT INTO music_store VALUES (5, "amplifier", "boss katana", "speaker", 300  );
+INSERT INTO music_store VALUES (6, "guitar picks", "fender heavy", "accessory", 1  );
+INSERT INTO music_store VALUES (7, "guitar strap", "fender guitar strap", "accessory", 25 );
+INSERT INTO music_store VALUES (8, "rhodes", "fender rhodes", "keyboard", 2100   );
+INSERT INTO music_store VALUES (9, "music stand", "fender stand", "accessory", 18 );
+INSERT INTO music_store VALUES (10, "guitar", "fender acoustisonic", "instrument", 300 );
+INSERT INTO music_store VALUES (11, "sheet music", "van halen guitar solos", "books", 22 );
+INSERT INTO music_store VALUES (12, "pedal", "TCL delay", "accessory", 75 );
+INSERT INTO music_store VALUES (13, "pedal", "boss chorus", "accessory", 80 );
+INSERT INTO music_store VALUES (14, "drumsticks", "pearl drumsticks", "accessory", 15 );
+INSERT INTO music_store VALUES (15, "cymbal", "zildjian hihat", "cymbals", 400  );
+
+-- Display the database ordered by price
+SELECT * FROM music_store
+ORDER BY price DESC;
+
+-- What is the avg price of guitars in the instrument section?
+SELECT AVG(price) "avg guitar price"
+FROM music_store
+WHERE item = "guitar";
+
+-- What are the 5 most expensive items in the store?
+SELECT item, name, price
+FROM music_store
+ORDER BY price DESC
+LIMIT 5;
