@@ -1,0 +1,84 @@
+CREATE TABLE authors (
+  author_id INTEGER,
+  name TEXT,
+  genre TEXT
+);
+
+CREATE TABLE books (
+  book_id INTEGER,
+  title TEXT,
+  author TEXT,
+  length INTEGER,
+  price NUMERIC
+);
+
+CREATE TABLE customers (
+  customer_id INTEGER,
+  fullname TEXT,
+  email TEXT
+  );
+
+CREATE TABLE orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  customer_id INTEGER,
+  book_id INTEGER
+ );
+
+INSERT INTO authors (author_id, name, genre) VALUES (1, "Stephen King", "Horror");
+INSERT INTO authors (author_id, name, genre) VALUES (2, "H.P. Lovecraft", "Horror");
+INSERT INTO authors (author_id, name, genre) VALUES (3, "Isaac Asimov", "Science Fiction");
+INSERT INTO authors (author_id, name, genre) VALUES (4, "Douglas Adams", "Science Fiction");
+INSERT INTO authors (author_id, name, genre) VALUES (5, "Ernest Hemingway", "Fiction");
+INSERT INTO authors (author_id, name, genre) VALUES (6, "Fyodor Dostoyevsky", "Fiction");
+INSERT INTO authors (author_id, name, genre) VALUES (7, "George R.R. Martin", "Fantasy");
+INSERT INTO authors (author_id, name, genre) VALUES (8, "J.R.R. Tolkien", "Fantasy");
+
+INSERT INTO books (book_id, title, author, length, price) 
+  VALUES (1,"HitchHiker's Guide to the Galaxy", "Douglas Adams", 600, 7.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (2, "Foundation: Book One", "Isaac Asimov", 800, 5.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (3, "Game of Thrones", "George R.R. Martin", 950, 9.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (4, "The Shining", "Stephen King", 925, 6.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (5, "A Storm of Swords", "George R.R. Martin", 1100, 11.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (6, "Shadow Over Insmouth", "H.P. Lovecraft", 500, 4.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (7, "The Brothers Karamazov", "Fyodor Dostoyevsky", 1050, 5.95);
+INSERT INTO books (book_id, title, author, length, price)
+  VALUES (8, "The Fellowship of the Ring", "J.R.R. Tolkien", 1025, 7.95);
+  
+INSERT INTO customers (customer_id, fullname, email) 
+  VALUES (1, "Aimee Schwartz", "laney@aol.com");
+INSERT INTO customers (customer_id, fullname, email) 
+  VALUES (2, "Briana Bandy", "briana@viola.com");
+INSERT INTO customers (customer_id, fullname, email) 
+  VALUES (3, "Bob Wilson", "bob@shocker.com");
+INSERT INTO customers (customer_id, fullname, email) 
+  VALUES (4, "Barack Obama", "obama@prez.com");
+INSERT INTO customers (customer_id, fullname, email) 
+  VALUES (5, "Danielle Rigolette", "dani@toystory.com");
+
+INSERT INTO orders (customer_id, book_id) VALUES (5, 2);
+INSERT INTO orders (customer_id, book_id) VALUES (2, 3);
+INSERT INTO orders (customer_id, book_id) VALUES (2, 5);
+INSERT INTO orders (customer_id, book_id) VALUES (1, 7);
+INSERT INTO orders (customer_id, book_id) VALUES (3, 4);
+INSERT INTO orders (customer_id, book_id) VALUES (4, 6);
+INSERT INTO orders (customer_id, book_id) VALUES (2, 1);
+
+
+SELECT authors.name, books.title, books.price
+  FROM authors
+  JOIN books ON authors.name = books.author
+  WHERE genre = "Fantasy";
+  
+SELECT books.title, books.length, books.price
+  FROM books
+  WHERE length > 850;
+  
+SELECT * FROM books;
+
+
