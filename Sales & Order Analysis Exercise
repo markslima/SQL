@@ -1,0 +1,35 @@
+# In this exercise, querying multi-table dawtabase to gain insights and statistics regarding sales & revenue information
+
+# 1. How many orders were placed in January?
+SELECT COUNT(*) From JanSales WHERE length(orderID) AND orderID <> 'Order ID';
+
+# 2. How many of these were for an iPhone?
+SELECT COUNT(*) FROM JanSales WHERE Product = 'iPhone';
+
+# 3. Select the customer account numbers for all the orders that were placed in February
+SELECT distinct acctnum
+  FROM customers c
+  INNER JOIN FebSales f
+  ON c.order_ID = f.orderID;
+
+# 4. Which product was the cheapest one sold in January and what was the price?
+SELECT product, price from JanSales ORDER BY price ASC LIMIT 1;
+
+# 5. What is the total revenue for each product sold in January? (Revenue can be calculated using the number of products sold and the price of the products)
+SELECT product, ROUND(SUM(price) * quantity,2) 'Revenue' FROM JanSales GROUP BY product;
+
+# 6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT quantity, product, price * Quantity 'Total Revenue' FROM FebSales where location = '548 Lincoln St, Seattle, WA 98101';
+# Answer: 2 | AA Batteries (4-Pack) - Quantity 2 | $7.68
+
+# 7. How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+SELECT COUNT(distinct c.acctnum), 
+  AVG(quantity * price) 
+  FROM FebSales f
+  LEFT JOIN customers c
+  ON f.orderID = c.order_id
+  WHERE f.quantity > 2
+  AND length(orderID) = 6
+  AND orderID <> 'Order ID'
+;
+
