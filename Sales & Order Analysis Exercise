@@ -30,8 +30,7 @@ SELECT COUNT(distinct c.acctnum),
   ON f.orderID = c.order_id
   WHERE f.quantity > 2
   AND length(orderID) = 6
-  AND orderID <> 'Order ID'
-;
+  AND orderID <> 'Order ID';
 
 # 8. List all the products sold in Los Angeles in February, and include how many of each were sold.
 SELECT Product, SUM(quantity) '# Sold' FROM FebSales WHERE Location LIKE '%Los Angeles%' GROUP BY Product;
