@@ -35,5 +35,91 @@ SELECT COUNT(distinct c.acctnum),
 # 8. List all the products sold in Los Angeles in February, and include how many of each were sold.
 SELECT Product, SUM(quantity) '# Sold' FROM FebSales WHERE Location LIKE '%Los Angeles%' GROUP BY Product;
 
+# Advanced Customer & Order Analytics - More complex and specific queries to the data
+
+# 1. Which locations in New York received at least 3 orders in January, and how many orders did they receive? (HINT: use HAVING)
+
+SELECT 
+  DISTINCT location, 
+  COUNT(orderID), 
+  
+  FROM JanSales 
+  WHERE location LIKE '%NY%' 
+  AND quantity > 3
+  GROUP BY location
+  HAVING COUNT(orderID) > 2;
+
+# Answer: 
+
+# location                                   COUNT(orderID)
+# -----------------------------------------  --------------
+# 148 Elm St, New York City, NY 10001        3
+# 515 Lincoln St, New York City, NY 10001    3
+# 916 Pine St, New York City, NY 10001       3
+# 961 Jefferson St, New York City, NY 10001  4
+
+# 2. How many of each type of headphone were sold in February?
+
+SELECT Product, 
+  COUNT(Product) "# Units Sold" 
+  FROM FebSales 
+  WHERE Product LIKE "%Headphones%" 
+  GROUP BY Product;
+
+# Answer:
+
+# Apple Airpods Headphones    1011
+# Bose SoundSport Headphones  834
+# Wired Headphones            1186
+
+# 3. What was the average amount spent per account in February? (Hints: For this question, we want the average amount spent/number of accounts, not the amount spent by each account. To multiply, you can use the * symbol, and to divide, use the / symbol)
+
+SELECT
+  SUM(quantity * price) / COUNT(c.acctnum)
+  FROM FebSales f
+  LEFT JOIN customers c
+  ON f.orderID = c.order_ID
+  WHERE LENGTH(orderID) = 6
+  AND orderID <> 'Order ID';
+
+# -- or --
+
+SELECT 
+  AVG(quantity * price) FROM 
+  FebSales f 
+  LEFT JOIN customers c 
+  ON f.orderID = c.order_ID 
+  WHERE LENGTH(orderID) = 6  
+  AND orderID <> 'Order ID';
+
+# Answer: $190.00
+
+# 4. What was the average quantity of products purchased per account in Feburary? (Hint: just like question 3, we want the overall average, not the average for each account individually)
+
+SELECT SUM(quantity) / COUNT(c.acctnum)
+  FROM FebSales F
+  LEFT JOIN f.orderID = c.order_ID
+  WHERE LENGTH(orderID) = 6
+  AND orderID <> 'Order ID'
+
+# Answer: Average quantity of each purchase was 1
+
+# 5. Which product brought in the most revenue in Jnauary, and how much revenue did it bring 
+in total?
+
+SELECT Product, 
+  SUM(quantity * price) 
+  FROM JanSales 
+  GROUP BY Product 
+  ORDER BY SUM(quantity * price)
+  DESC LIMIT 1;
+
+# Answer: MacBook Pro 399,500.0 in Revenue
+
+
+
+
+
+
 
 
